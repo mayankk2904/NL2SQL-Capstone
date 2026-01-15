@@ -1,0 +1,40 @@
+# Python
+venv/
+.env
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+*.sqlite3
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# For React/TypeScript projects
+node_modules/
+dist/
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# PostgreSQL (if any)
+postgres-data/
