@@ -34,7 +34,6 @@ def seed_database():
     db = SessionLocal()
     
     try:
-        # Sample data
         students_data = [
             {"name": "Krish", "class_name": "Data Science", "section": "A", "marks": 90},
             {"name": "Sudhanshu", "class_name": "Data Science", "section": "B", "marks": 100},

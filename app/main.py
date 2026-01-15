@@ -1,8 +1,7 @@
-# app/main.py - Add test endpoint
 from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from sqlalchemy import text  # Import text
+from sqlalchemy import text
 from typing import List, Optional
 
 from app import schemas, crud, models
@@ -10,10 +9,9 @@ from app.database import engine, get_db
 # from app.gemini_service import gemini_service
 from app.ollama_service import ollama_service
 
-# Create database tables
+# Creating database tables
 models.Base.metadata.create_all(bind=engine)
 
-# Initialize FastAPI app
 app = FastAPI(
     title="Natural Language to SQL API (Ollama)",
     description="Convert natural language questions to SQL queries using Ollama LLM",
@@ -124,11 +122,9 @@ def health_check(db: Session = Depends(get_db)):
     }
     
     try:
-        # Check database connection
         db.execute(text("SELECT 1"))
         health_status["database"] = "connected"
         
-        # Check student count
         result = db.execute(text("SELECT COUNT(*) FROM students"))
         health_status["student_count"] = result.scalar()
         
@@ -154,29 +150,23 @@ def natural_language_to_sql(
     db: Session = Depends(get_db),
     model: Optional[str] = Query(None, description="Optional: Specify Ollama model to use")
 ):
-    """
-    Convert natural language question to SQL using Ollama, execute it, and return results
-    """
+
     try:
         print(f"Processing question: {query.question}")
         
-        # Step 1: Generate SQL from natural language
         if model:
             # Use specified model
             from app.ollama_service import OllamaService
             temp_service = OllamaService(model=model)
             sql_query = temp_service.generate_sql(query.question)
         else:
-            # Use default service
             sql_query = ollama_service.generate_sql(query.question)
         
         print(f"Generated SQL: {sql_query}")
         
-        # Step 2: Execute the SQL query
         result = crud.execute_sql_query(db, sql_query)
         print(f"Query returned {len(result)} rows")
         
-        # Step 3: Generate explanation
         if model:
             explanation = temp_service.explain_query(sql_query, result)
         else:

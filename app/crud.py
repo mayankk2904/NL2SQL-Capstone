@@ -1,6 +1,5 @@
-# app/crud.py - UPDATED
 from sqlalchemy.orm import Session
-from sqlalchemy import text  # IMPORT THIS
+from sqlalchemy import text 
 from app import models, schemas
 from typing import List, Optional
 import re
@@ -25,27 +24,21 @@ def execute_sql_query(db: Session, sql_query: str):
     Execute raw SQL query safely with SQLAlchemy text() wrapper
     """
     try:
-        # Clean the SQL query
         sql_query = sql_query.strip()
         
-        # Basic security check
         query_upper = sql_query.upper()
         
-        # Only allow SELECT queries for safety
         if not query_upper.startswith('SELECT'):
             raise ValueError("Only SELECT queries are allowed for security reasons")
         
-        # Check for dangerous keywords
         forbidden_keywords = ['DROP', 'DELETE', 'TRUNCATE', 'ALTER', 'UPDATE', 'INSERT']
         for keyword in forbidden_keywords:
             if keyword in query_upper:
                 raise ValueError(f"Query contains forbidden keyword: {keyword}")
         
-        # Remove trailing semicolon if present
         if sql_query.endswith(';'):
             sql_query = sql_query[:-1]
         
-        # Execute with text() wrapper
         result = db.execute(text(sql_query))
         rows = result.fetchall()
         

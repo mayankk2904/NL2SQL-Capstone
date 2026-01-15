@@ -1,4 +1,3 @@
-# app/ollama_service.py
 import requests
 import json
 from typing import List, Optional
@@ -10,7 +9,6 @@ class OllamaService:
         self.model = model or settings.OLLAMA_MODEL
         self.base_url = settings.OLLAMA_BASE_URL
         
-        # Enhanced prompt for SQL generation
         self.sql_prompt = """You are an expert SQL developer. Convert the natural language question to PostgreSQL SQL query.
 
 Database Schema:
@@ -61,8 +59,8 @@ NOW CONVERT THIS QUESTION:
                 "prompt": full_prompt,
                 "stream": False,
                 "options": {
-                    "temperature": 0.1,  # Low temperature for consistent SQL
-                    "num_predict": 300,  # Increased for longer SQL queries
+                    "temperature": 0.1, 
+                    "num_predict": 300,  
                     "top_p": 0.9,
                     "top_k": 40
                 }
@@ -104,18 +102,15 @@ NOW CONVERT THIS QUESTION:
         # Remove markdown code blocks
         sql_query = sql_query.replace("```sql", "").replace("```", "")
         
-        # Remove any explanatory text (look for SQL: pattern)
         if "SQL:" in sql_query:
             sql_query = sql_query.split("SQL:")[-1]
         
-        # Strip whitespace and newlines
         sql_query = sql_query.strip()
         
         # Remove trailing semicolon
         if sql_query.endswith(';'):
             sql_query = sql_query[:-1]
         
-        # Ensure it's a single line (join if multiline)
         sql_query = ' '.join(sql_query.splitlines())
         
         return sql_query
@@ -175,5 +170,4 @@ Explanation:"""
             return False
         return False
 
-# Create global instance
 ollama_service = OllamaService()

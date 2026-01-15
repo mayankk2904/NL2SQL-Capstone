@@ -1,4 +1,3 @@
-# test_ollama_setup.py
 import requests
 import sys
 import time
@@ -71,7 +70,7 @@ def test_ollama_setup():
     
     print("\n" + "=" * 50)
     print("Setup Summary:")
-    print("Ollama service: Running" if response.status_code == 200 else "❌ Ollama service: Not running")
+    print("Ollama service: Running" if response.status_code == 200 else "Ollama service: Not running")
     print("Next steps:")
     print("   1. Ensure ollama serve is running")
     print("   2. Run: python debug_sql.py")

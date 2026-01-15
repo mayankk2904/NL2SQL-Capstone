@@ -1,15 +1,13 @@
-# debug_sql.py - Updated for Ollama
 import sys
 from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Add current directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 load_dotenv()
 
-# Test Ollama SQL generation
+# Testing Ollama SQL generation
 try:
     from app.ollama_service import ollama_service
     print("Ollama service imported")
