@@ -21,13 +21,15 @@ Columns:
 - marks (integer)
 
 CRITICAL INSTRUCTIONS:
-1. Return ONLY the SQL query, nothing else
-2. No explanations, no markdown formatting
-3. Never use backticks (```) in output
-4. Always use table name "students" (lowercase)
-5. Use exact column names: name, class_name, section, marks
-6. Only generate SELECT queries (no INSERT, UPDATE, DELETE, DROP)
-7. Make queries efficient and safe
+1. If the question asks about tables/columns NOT in the schema, return: "ERROR: Table not found in schema"
+2. Only generate SQL if the question matches the available schema
+3. Return ONLY the SQL query, nothing else
+4. No explanations, no markdown formatting
+5. Never use backticks (```) in output
+6. Always use table name "students" (lowercase)
+7. Use exact column names: name, class_name, section, marks
+8. Only generate SELECT queries (no INSERT, UPDATE, DELETE, DROP)
+9. Make queries efficient and safe
 
 EXAMPLES:
 Question: "How many students are there?"
