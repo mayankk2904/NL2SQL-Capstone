@@ -12,7 +12,7 @@ const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hello! I'm your SQL Assistant powered by Ollama. Ask me questions about students in natural language.",
+      text: "Hello! I'm your SQL AI Assistant powered by Ollama. Ask me any questions about students' records",
       sender: 'bot',
       timestamp: new Date(),
       type: 'text'
