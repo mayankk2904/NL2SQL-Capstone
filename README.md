@@ -87,3 +87,4 @@ http://localhost:3000
 ## 📌 Notes
 - Ollama must be running locally for the LLM inference to work
 - The LLM service layer is modular and can be swapped (e.g., Gemini, OpenAI)
+- The system can be upgraded and scaled to handle multiple tables and schemas within a database
